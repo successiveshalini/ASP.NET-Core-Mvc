@@ -1,0 +1,32 @@
+﻿@model MyCup.Models.CupDetails
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center text-primary">My Cup</h1>
+                    <div class="card-body">
+                        <form method="post" asp-action="Edit">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="IdCup" />
+                                <label asp-for="Name">Cup Name</label>
+                                <input asp-for="Name" type="text" class="form-control" placeholder="Edit Cup Name" />
+                                <label asp-for="Description">Cup Description</label>
+                                <input asp-for="Description" type="text" class="form-control" placeholder="Edit Cup Description" />
+                                <label asp-for="Price">Cup Price</label>
+                                <input asp-for="Price" type="text" class="form-control" placeholder="Edit Cup Price" />
+                                <label asp-for="Company">Cup Company</label>
+                                <input asp-for="Company" type="text" class="form-control" placeholder="Edit Cup Company" />
+                            </div>
+                            <input type="submit" class="btn btn-sm btn-success" value="Save" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

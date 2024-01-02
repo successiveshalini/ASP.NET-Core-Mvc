@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MyCup.Models.CupDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h1 class="text-center ">Cup Details</h1>
+               <a class="btn btn-sm btn-success m-1" asp-action="Create" asp-controller="Cup">Create</a>
+            <table class="table table-bordered">
+                <tr class="text-center text-primary">
+                  
+                  <th>Cup Name</th>
+                  <th>Cup Description</th>
+                  <th>Cup Price</th>
+                  <th>Cup Company</th>
+                  <th>Buttons</th>
+                    
+                </tr>
+                @foreach (var d in Model)
+                {
+                    <tr class="text-center">
+                        
+                        <td>@d.Name</td>
+                        <td>@d.Description</td>
+                        <td>@d.Price</td>
+                        <td>@d.Company</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" asp-action="Edit" asp-controller="Cup" asp-route-id="@d.IdCup">Edit</a>
+
+                            <a class="btn btn-sm btn-danger" asp-action="Delete" asp-controller="Cup" asp-route-id="@d.IdCup">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
