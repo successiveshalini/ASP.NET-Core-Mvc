@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MyWatch.Models.WatchDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+<div class=" Containt">
+    <div class=" row">
+        <div class="col-8 offset-2"></div>
+        <h1 class="text-center text-primary ">Watch Details</h1>
+        <a class=" btn btn-sm btn-success m-1" asp-controller="Watch" asp-action="Create">Create</a>
+        <table class=" table table-bordered border-2">
+            <tr class="text-center">
+                <th>WatchId</th>
+                <th>WatchName</th>
+                <th>WatchModel</th>
+                <th>WatchPrice</th>
+                <th>WatchColor</th>
+                <th>Buttons for Modify</th>
+
+            </tr>
+            @foreach (var a in Model)
+            {
+                <tr class="text-center">
+                    <td>@a.WatchId</td>
+                    <td>@a.WatchName</td>
+                    <td>@a.WatchModel</td>
+                    <td>@a.WatchPrice</td>
+                    <td>@a.WatchColor</td>
+                    <td>
+                       <a class="btn btn-sm btn-warning" asp-controller="Watch" asp-action="Edit" asp-route-id="@a.WatchId">Edit</a>
+                       <a class="btn btn-sm btn-danger" asp-controller="Watch" asp-action="Delete" asp-route-id="@a.WatchId">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+

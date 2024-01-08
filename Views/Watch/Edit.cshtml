@@ -1,0 +1,55 @@
+﻿@model MyWatch.Models.WatchDetails
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card-header">
+                <h1 class="text-center text-primary">
+                    Edit Watch Details
+                </h1>
+                <div class="card-body">
+                    <form method="post" asp-action="Edit">
+                        <div class="form-group">
+                            
+                             <label asp-for="WatchName">
+
+                             </label>
+                            <input type="hidden" asp-for="WatchName" />
+                            <input type="text" asp-for="WatchName" class="form-control" placeholder="Enter Watch Name" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WatchModel">
+
+                            </label>
+                            <input type="text" asp-for="WatchModel" class="form-control" placeholder="Enter Watch Model" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WatchPrice">
+
+                            </label>
+                            <input type="text" asp-for="WatchPrice" class="form-control" placeholder="Enter Watch Price" />
+                        </div>
+
+                        <div class="form-group">
+
+                        <label asp-for="WatchColor">
+                       
+                        </label>
+                            <input type="text" asp-for="WatchColor" class=" form-control" placeholder="Enter Watch Color" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-sm btn-outline-success float-right" />
+                        </div>
+
+                    </form>
+
+
+                    </>
+                </div>
+            </div>
+        </div>
+    </div>
