@@ -1,0 +1,45 @@
+﻿@model   IEnumerable<MyMobile.Models.MobileDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class=" containet">
+    <div class="row">
+        <div class="col-8 offset-2">
+            <h1 class="text-center text-primary"> Mobile Details</h1>
+            <a class="btn btn-sm btn-success m-1" asp-controller="Mobile" asp-action="Create">Create</a>
+            <script src="~/lib/jquery/dist/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+            @if(TempData["message"] != null)
+            {
+                <script>
+                    toastr.success('@TempData["message"]')
+                </script>
+            }
+            <table class="table  table-bordered border-2">
+                <tr class="text-center">
+                
+                    <th> MobileId</th>
+                    <th>Mobile Name</th>
+                    <th>Mobile Model</th>
+                    <th>Mobile Price</th>
+                    <th>Buttons for Modify</th>
+                
+                </tr>
+                @foreach (var d in Model)
+                {
+                <tr class="text-center">
+                    <td>@d.MobId</td>
+                    <td>@d.MobName</td>
+                    <td>@d.MobModel</td>
+                    <td>@d.MobPrice</td>
+                    <td>
+                        <a class="btn btn-sm btn-warning" asp-controller="Mobile" asp-action="Edit" asp-route-id="@d.MobId">Edit</a>
+                        <a class="btn btn-sm btn-danger" asp-controller="Mobile" asp-action="Delete" asp-route-id="@d.MobId">Delete</a>
+                    </td>
+                </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>

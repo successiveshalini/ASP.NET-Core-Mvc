@@ -1,0 +1,47 @@
+﻿@model MyMobile.Models.MobileDetails
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card-header">
+                <h1 class="text-center text-primary">
+                    Edit Mobile Details
+                </h1>
+                <div class="card-body">
+                    <form method="post" asp-action="Edit">
+                        <div class="form-group">
+                            <label asp-for="MobName">
+
+                            </label>
+                            <input type="hidden" asp-for="MobId" />
+                            <input type="text" asp-for="MobName" class="form-control" placeholder="Enter Mobile Name" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MobModel">
+
+                            </label>
+                            <input type="text" asp-for="MobModel" class="form-control" placeholder="Enter Mobile Model" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="MobPrice">
+
+                            </label>
+                            <input type="text" asp-for="MobPrice" class="form-control" placeholder="Enter Mobile Price" />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="submit" value="Submit" class="btn btn-sm btn-outline-success float-right" />
+                        </div>
+
+                    </form>
+
+
+                    </>
+                </div>
+            </div>
+        </div>
+    </div>
+
