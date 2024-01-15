@@ -1,0 +1,50 @@
+﻿@model IEnumerable<JsonResultFormate.Models.ProductDetails>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    <table id="tbl" class="tblProducts">
+        <thead>
+            <tr>
+                <th align="left" class="productth">ProductID</th>
+                <th align="left" class="productth">ProductName</th>
+                <th align="left" class="productth">Descrtption</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#tblProducts tbody tr").remove();
+        var rawdata = { 'Category': 'Electronics' };
+        $.ajax({
+            type: "GET",
+            url: "/product/Details/",
+            data: rawdata,
+            dataType: 'json',
+            success: function (data) {
+                var items = '';
+                $.each(data, function (i, item) {
+                    var rows = "<tr>"
+                        + "<td class='prtoducttd'>" + item.ProductId + "</td>"
+                        + "<td class='prtoducttd'>" + item.productName + "</td>"
+                        + "<td class='prtoducttd'>" + item.Description + "</td>"
+                        + "</tr>";
+                    $('#tblProducts tbody').append(rows);
+                });
+            },
+            error: function (errorData) {
+                //respone will be returned here
+                alert(errorData);
+                var ErrorResponse = jQuery.parseJSON(errorData.responseText);
+                alert("Message: " + ErrorResponse.Message);
+                alert("StackTrace: " + ErrorResponse.StackTrace);
+                alert("ExceptionType: " + ErrorResponse.ExceptionType);
+            }
+        });
+    });
+</script>
