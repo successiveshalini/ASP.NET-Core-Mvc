@@ -1,0 +1,58 @@
+﻿@using CustomIdentity.ViewModels;
+@model RegisterVM
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="row d-flex align-items-center justify-content-center">
+    <div class="col-md-3 card p-3">
+        <h2 class="text-center">Register</h2>
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly"></div>
+            <div class="mb-1">
+                <label asp-for="Name"></label>
+                <input type="text" asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Phone"></label>
+                <input type="text" asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Address"></label>
+                <textarea type="text" asp-for="Address" class="form-control" rows="2"></textarea>
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Email"></label>
+                <input type="email" asp-for="Email" autofocus="username" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="Password"></label>
+                <input type="password" asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="mb-1">
+                <label asp-for="ConfirmPassword"></label>
+                <input type="password" asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-8">
+                    <a asp-action="Login">Have Account?</a>
+                </div>
+                <div class="col-4">
+                    <input type="submit" value="Register" class="btn btn-sm float-end btn-primary" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

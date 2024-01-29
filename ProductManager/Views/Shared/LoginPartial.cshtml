@@ -1,0 +1,34 @@
+﻿@using CustomIdentity.Data;
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<ApplicationUser> signInManager
+<ul class="navbar-nav">
+    @if (signInManager.IsSignedIn(User))
+    {
+        <li class=" nav-item dropdown">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Hello, @User.Identity!.Name
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-action="Logout" asp-controller="Author">
+                    Logout
+                </a>
+                
+            </ul>
+        </li>
+
+        </li>
+        
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Author" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Author" asp-action="Login">Login</a>
+        </li>
+        
+    }
+
+</ul>
