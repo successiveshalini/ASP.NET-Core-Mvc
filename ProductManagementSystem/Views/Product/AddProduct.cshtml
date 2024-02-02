@@ -1,0 +1,79 @@
+﻿
+@model EcommerceManagementProject.Models.Dto.AddProductDto;
+
+@{
+    ViewData["Title"] = "AddProduct";
+    var categoryList = ViewBag.CategoryList as List<EcommerceManagementProject.Models.Domain.CategoryModel>;
+}
+
+<html>
+<head>
+    <style>
+        body {
+            overflow-y: hidden;
+        }
+
+        .mt200 {
+            margin-top: 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container overflow-hidden">
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="vh-100 d-flex justify-content-center align-items-center">
+
+                    <form asp-action="AddProduct" method="post" enctype="multipart/form-data" asp-controller="Product" class="form-control p-5">
+                        <h2 class="p-3 text-center">Add Product</h2>
+                        <div class="form-group mt-3">
+                            @* <select class="form-select" aria-label="Default select example" asp-for="CategoryRefId">
+
+                                @if (categoryList != null)
+                                {
+                                    @foreach (var x in categoryList)
+                                    {
+                                        @if (x.CategoryId == ViewBag.DefaultCategoryId)
+                                        {
+                                            <option value="@x.CategoryId" selected>@x.CategoryName</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@x.CategoryId">@x.CategoryName</option>
+                                        }
+                                    }
+                                }
+                            </select> *@
+                        </div>
+                        <div class="form-group mt-3">
+                            <input asp-for="ProductName" class="form-control" type="text" placeholder="Product Name" />
+                            <span asp-validation-for="ProductName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input asp-for="ProductDes" class="form-control" type="text" placeholder="Product Description" />
+                            <span asp-validation-for="ProductDes" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input asp-for="ProductPrice" class="form-control" type="number" placeholder="Product Price" />
+                            <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mt-3">
+                            <input asp-for="ProductImage" class="form-control" type="file" placeholder="Product Image" />
+                            <span asp-validation-for="ProductImage" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Add Product</button>
+                        
+                    </form>
+                </div>
+            </div>
+            @* <div class="col-lg-6">
+                <div class="container d-flex justify-content-center align-item-center">
+                    <img src="https://img.freepik.com/free-vector/ecommerce-checkout-laptop-concept-illustration_114360-8243.jpg?size=626&ext=jpg&ga=GA1.1.1036767008.1706037099&semt=ais" class="w-75 mt200" alt="img" />
+                </div> *@
+            </div>
+        </div>
+    </div>
+</body>
+</html>

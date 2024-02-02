@@ -1,0 +1,39 @@
+﻿@using EcommerceManagementProject.Models.Domain;
+@using EcommerceManagementProject.Models.Dto
+@using Microsoft.AspNetCore.Identity;
+
+@inject SignInManager<UserModel> signInManager;
+<ul class="navbar-nav">
+    @if (signInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" area-expanded="false">
+                Hello, @User.Identity!.Name
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="dropdown-item" asp-action="Index" asp-controller="Admin">
+                            Dashboard
+                        </a>
+                    }
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Authentication">
+                        Logout
+                    </a>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>
+    
+    

@@ -1,0 +1,92 @@
+﻿@model List<EcommerceManagementProject.Models.Domain.ProductModel>
+
+
+@{
+    ViewData["Title"] = "GetAll";
+    var CategoryList = ViewBag.CategoryList as List<EcommerceManagementProject.Models.Domain.CategoryModel>;
+}
+@* <html>
+    <head>
+        <style>
+        .mt70 {
+            margin-top: 70px;
+        }
+        </style>
+    </head>
+    <body> *@
+
+    <h3 class="m-3 mt70">All Products</h3>
+
+    <div class="d-flex mt70 justify-content-between">
+        <div>
+            <select class="form-select " style="width:10rem" id="categoryId">
+                @if (CategoryList != null && CategoryList.Count > 0)
+                {
+                    @foreach (var x in CategoryList)
+                    {
+                        <option value="@x.CategoryId">@x.CategoryName</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="d-flex justify-content-between">
+            <div class="me-5">
+                <a class="btn btn-success" href="/Product/AddProduct">Add New Product</a>
+            </div>
+            <div class="form-outline" data-mdb-input-init>
+                <input type="search" id="form1" class="form-control" />
+                <label class="form-label" for="form1">Search</label>
+            </div>
+            <div class="mt-2 ms-2">
+                <i class="bi bi-search"></i>
+            </div>
+        </div>
+    </div>
+
+<table class="table"  table-striped-columns">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Product Price</th>
+                <th>Is Available</th>
+                <th>Is Trending</th>
+                <th>Category Name</th>
+                <th>Created At</th>
+            <th>Buttons for Modify Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ProductName</td>
+                        <td>@product.ProductDesc</td>
+                        <td>@product.ProductPrice</td>
+                        <td>@product.IsActive</td>
+                        <td>@product.IsTrending</td>
+                        <td>@product.Category.CategoryName</td>
+                        <td>@product.ProductCreatedAt.Date.ToString("dd-MM-yyyy")</td>
+                        <td>
+                        <a class="btn btn-primary" href="/Product/Update/@product.ProductId">Edit</a>
+                            @if (product.IsActive)
+                            {
+                                <a class="btn btn-danger" href="/Product/Deactive/@product.ProductId">Delete</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success" href="/Product/Active/@product.ProductId">Active</a>
+                            }
+                        
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table> 
+
+    <div id="productTableBody">
+
+    </div>

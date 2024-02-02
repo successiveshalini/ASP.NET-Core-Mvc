@@ -1,0 +1,23 @@
+﻿@using EcommerceManagementProject.Models.Domain;
+﻿@using Microsoft.AspNetCore.Identity
+@using EcommerceManagementProject.Models.Dto
+
+@{
+    ViewData["Title"] = "AdminDashboard";
+}
+@inject SignInManager<UserModel> signInManager;
+
+
+@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <h1>Hi Admin, @User.Identity!.Name</h1>
+}
+else
+{
+    <script>
+        function redirectToAction() {
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+        redirectToAction()
+    </script>
+}
