@@ -1,0 +1,49 @@
+﻿@model List<EcommerceManagementProject.Models.Dto.ProductCategoryDto>
+    
+
+@{
+    ViewData["Title"] = "GetAll";
+}
+
+@if (Model != null)
+{
+    @foreach (var product in Model)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Description</th>
+                    <th>Product Price</th>
+                    <th>Is Available</th>
+                    <th>Is Trending</th>
+                    <th>Category Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.ProductDes</td>
+                    <td>@product.ProductPrice</td>
+                    <td>@product.IsAvailable</td>
+                    <td>@product.IsTrending</td>
+                    <td>@product.CategoryId</td>
+                    <td>
+                        <a class="btn btn-primary" href="/Product/Update/@product.ProductId">Edit</a>
+                        <a class="btn btn-danger" href="/Product/Deactive/@product.ProductId">Deactive</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    }
+}
+else
+{
+    <div class="d-flex justify-content-center  align-items-center vh-100">
+        <div class=" card p-5 w-25">
+            <div class="card-title text-center text-danger fs-5 fw-600">No Product are Persents</div>
+            <div class="card-body text-center"><a class="btn btn-success pl-2 pr-2" href="/Product/AddProduct">Add Product</a></div>
+        </div>
+    </div>
+}

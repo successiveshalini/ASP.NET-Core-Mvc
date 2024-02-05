@@ -1,7 +1,8 @@
 ﻿    ﻿@{
-   //  var CategoryList = ViewBag.CategoryList as List<Ecommerce.Models.Domain.CategoryModel>;
+    var CategoryList = ViewBag.CategoryList as List<EcommerceManagementProject.Models.Domain.CategoryModel>;
     ViewData["Title"] = "Admin Dashboard";
 }
+@* @model List<EcommerceManagementProject.Models.Domain.ProductModel>; *@
 
     
 <!DOCTYPE html>
@@ -10,9 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
-    @* <style>
+     <style>
         .bgaqua {
-            background: #4549df;
+            background: #4768;
         }
 
         .bglightblue {
@@ -34,7 +35,7 @@
         .mt70 {
             margin-top: 70px;
         }
-    </style> *@
+    </style> 
     <title>Admin Dashboard</title>
 </head>
 <body>
@@ -75,33 +76,44 @@
     </nav>
     <div class="container-fluid mt70 ">
         <div class="row ">
+                <div class="input-group d-flex justify-content-end mt-2">
+                    <form id="searchForm" asp-action="GetProductsByCategory" asp-controller="Product">
+                        @* <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search products..." value="" id="searchInput" name="searchQuery">
+                            <button class="btn btn-outline-secondary" type="submit" id="searching">Search</button>
+                             <a asp-action="Index" asp-controller="Home" class="btn">Reset</a> 
+                            <button type="button" class="btn" id="resetButton">Reset</button>
+                        </div> *@
+                    </form>
+                </div>
             <div class="col-md-2 d-flex flex-column bggrey vh-100">
-                @* <select class="form-select mt-5" id="categoryId">
-                    @if (Categori != null && CategoryList.Count > 0)
+                <select class="form-select mt-5" id="categoryId">
+                    @if (CategoryList != null && CategoryList.Count > 0)
                     {
                         @foreach (var x in CategoryList)
                         {
                             <option value="@x.CategoryId">@x.CategoryName</option>
                         }
                     }
-                </select> *@
+                </select>
                 <div class="btn-group dropend mt-5 ">
-                    @* <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-grabbed="false">
                         Manage Users
-                    </button> *@
-                    @* <ul class="dropdown-menu ">
+                    </button> 
+                     <ul class="dropdown-menu ">
                         <li><a class="dropdown-item" href="/Authentication/GetAllUser">All Users</a></li>
                         <li><a class="dropdown-item" href="/Authentication/Register">Add New User</a></li>
-                    </ul> *@
+                    </ul>
                 </div>
                 <div class="btn-group dropend mt-5 ">
                     <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                          Products
                     </button>
                     <ul class="dropdown-menu ">
-                        @* <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li> *@
+                        <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
                         <li><a class="dropdown-item" href="/Product/AddProduct/">Add Product</a></li>
-                        <li><a class="dropdown-item" href="/Product/GetAll/">All Product</a></li>
+                         <li><a class="dropdown-item" href="/Product/GetAll/">All Product</a></li>
+                        @* <a class="dropdown-item" href="/Product/GetAll/">GetAll</a></li> *@
                     </ul>
                 </div>
             </div>
@@ -111,6 +123,172 @@
 
             </main>
         </div>
+    </div> 
+  </body>
+    @* @section Scripts{
+
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+
+            var getProducts = function () {
+                $.ajax({
+                    url: '@Url.Action("GetProductsByCategory", "Product")',
+                    type: 'GET',
+                    data: {
+                        categoryId: $('#categoryId').val(),
+                        searchingQuery: $('#searchInput').val(),
+                        sortOrder: $('#sortOrder').val(),
+                    },
+                    success: function (data) {
+                        $('#productList').html(data);
+                    },
+                    error: function () {
+                        console.log('Error fetching products');
+                    }
+                });
+            }
+
+            $(document).ready(function () {
+                getProducts();
+            });
+
+            $("#categoryId, #searching,#sortOrder").change(function () {
+                getProducts();
+            });
+
+            $(function () {
+                $("#searchForm").submit(function (event) {
+                    // Prevent the default form submission
+                    event.preventDefault();
+                    getProducts();
+                });
+            });
+
+            $("#resetButton").click(function () {
+                // Clear search input and reload original state
+                $('#searchInput').val('');
+                getProducts();
+            });
+        </script>
+    }
+
+ @* </body>
+<</html>         
+
+
+@* @using EcommerceManagementProject.Models.Domain;
+﻿@using Microsoft.AspNetCore.Identity
+@using EcommerceManagementProject.Models.Dto
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@* @* @{
+    ViewData["Title"] = "Dashboard";
+}
+@inject SignInManager<UserModel> signInManager;
+
+<style>
+
+    .container {
+        max-width: 1200px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+    .d-flex {
+        display: flex;
+    }
+
+    .align-items-center {
+        align-items: center;
+    }
+
+    .justify-content-between {
+        justify-content: space-between;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .rounded {
+        border-radius: 10px;
+    }
+
+    .p-4 {
+        padding: 1.5rem;
+    }
+
+    .mb-0 {
+        margin-bottom: 0;
+    }
+
+    .mb-4 {
+        margin-bottom: 1rem;
+    }
+
+    .total-count {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .text-decoration-none {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+        .text-decoration-none:hover {
+            text-decoration: underline;
+        }
+
+</style>
+
+
+@if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <div class="container pt-4 px-4">
+        <div class="row g-4">
+            <div class="col-sm-12 col-xl-6">
+                <div class="card bg-light rounded p-4">
+                    @* <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h2 class="mb-0">Total Users</h2>
+                        <a href="/Admin/GetAllUsers" class="text-decoration-none">View All</a>
+                    </div> *@
+                    @* <div class="total-count">
+                        @ViewBag.totalUsers
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-xl-6">
+                <div class="card bg-light rounded p-4"> *@
+                    @* <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h2 class="mb-0">Total Products</h2>
+                        <a href="AllProducts" class="text-decoration-none">View All</a>
+                    </div> *@
+                    @* <div class="total-count">
+                        @ViewBag.totalProducts
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-</body>
+}
+else
+{
+    <script>
+        function redirectToAction() {
+            window.location.href = '@Url.Action("Index", "Home")';
+        }
+        redirectToAction()
+    </script>
+@* }  *@

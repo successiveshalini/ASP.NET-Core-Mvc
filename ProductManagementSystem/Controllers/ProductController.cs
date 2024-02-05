@@ -15,18 +15,59 @@ namespace EcommerceManagementProject.Controllers
 
 
         public ProductController(ApplicationDbContext applicationDbContext, IWebHostEnvironment webHostEnvironment)
-        { 
-            _applicationDbContext = applicationDbContext;   
+        {
+            _applicationDbContext = applicationDbContext;
             _webHostEnvironment = webHostEnvironment;
 
         }
+
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAllByCategory(Guid categoryId, string searchingQuery, string sortOrder)
+        {
+            var product = await _applicationDbContext.products.Include(x => x.Category).OrderByDescending(x => x.ProductCreatedAt).ToListAsync();
+            if (categoryId != Guid.Empty)
+            {
+                if (categoryId != Guid.Parse("00000000-0000-0000-0000-000000000000"))
+                {
+                    product = product.Where(x => x.Category.CategoryId == categoryId).ToList();
+                }
+            }
+            if (!string.IsNullOrEmpty(searchingQuery))
+            {
+                searchingQuery = searchingQuery.ToLower();
+                product = product.Where(x => x.ProductName.ToLower().Contains(searchingQuery)).ToList();
+            }
+
+            switch (sortOrder)
+            {
+                case "normal":
+                    product = product.ToList();
+                    break;
+                case "asc":
+                    product = product.OrderBy(x => x.ProductPrice).ToList();
+                    break;
+                case "desc":
+                    product = product.OrderByDescending(x => x.ProductPrice).ToList();
+                    break;
+            }
+            return PartialView("AllProductByCategory", product);
+        }
+
+        
+
+
+
+
+
+
         [HttpGet]
-        public async Task <IActionResult> GetAll()
+        public async Task<IActionResult> GetAll()
         {
             ViewBag.CategoryList = await _applicationDbContext.Categories.ToListAsync();
             var products = _applicationDbContext.products.ToList();
             return View(products);
-            
+
         }
         [HttpGet]
         public async Task<IActionResult> AddProduct()
@@ -58,10 +99,10 @@ namespace EcommerceManagementProject.Controllers
                     ProductPrice = addProductDto.ProductPrice,
                     ProductDesc = addProductDto.ProductDes!,
                     IsActive = true,
-                    IsTrending = addProductDto.IsTrending, 
+                    IsTrending = addProductDto.IsTrending,
                     CategoryId = addProductDto.CategoryRefId,
                     ProductCreatedAt = DateTime.Now,
-                    ProductImageURL = productImageurl 
+                    ProductImageURL = productImageurl
 
                 };
                 _applicationDbContext.products.Add(product);
@@ -71,13 +112,108 @@ namespace EcommerceManagementProject.Controllers
                 return RedirectToAction("Index", "Admin");
 
             }
-            return View(addProductDto);  
+            return View(addProductDto);
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> Update(Guid id)
+        {
+            var product = await _applicationDbContext.products.FirstOrDefaultAsync(x => x.ProductId == id);
+            ViewBag.CategoryList = await _applicationDbContext.Categories.ToListAsync();
+            if (product != null)
+            {
+                var newProduct = new UpdateProductDto()
+                {
+                    ProductId = product.ProductId,
+                    ProductName = product.ProductName,
+                    ProductPrice = product.ProductPrice,
+                    ProductDes = product.ProductDesc,
+                    IsAvailable = product.IsActive,
+                    IsTrending = product.IsTrending,
+                    /* ProductImage = product.ProductImage,*/
+                    CategoryRefId = product.CategoryId,
+                    Category = product.Category,
+                };
+                return await Task.Run(() => View("Update", newProduct));
+            }
+            return RedirectToAction("GetAll");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(UpdateProductDto updateProductDto)
+        {
+            var product = await _applicationDbContext.products.FirstOrDefaultAsync(x => x.ProductId == updateProductDto.ProductId);
+            ViewBag.CourseList = _applicationDbContext.Categories.ToList();
+
+            string uniqueFileName = "";
+            if (updateProductDto.ProductImage != null)
+            {
+                string uploadFoler = Path.Combine(_webHostEnvironment.WebRootPath, "image");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + updateProductDto.ProductImage.FileName;
+                string filePath = Path.Combine(uploadFoler, uniqueFileName);
+                updateProductDto.ProductImage.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
+
+            if (product != null)
+            {
+                product.ProductName = updateProductDto.ProductName;
+                product.ProductPrice = updateProductDto.ProductPrice;
+                product.ProductDesc = updateProductDto.ProductDes;
+                product.ProductImageURL = uniqueFileName;
+                product.IsActive = updateProductDto.IsAvailable;
+                product.IsTrending = updateProductDto.IsTrending;
+                product.CategoryId = updateProductDto.CategoryRefId;
+                ViewBag.Success = "Product update Successfuly";
+                TempData["error"] = "Records Updated";
+            }
+            await _applicationDbContext.SaveChangesAsync();
+            return RedirectToAction("Index", "Admin");
             
+
         }
 
-        public IActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Active(Guid id)
         {
-            return View();
+            var product = _applicationDbContext.products.FirstOrDefault(x => x.ProductId == id);
+
+            if (product != null)
+            {
+                product.IsActive = true;
+                await _applicationDbContext.SaveChangesAsync();
+            }
+            return RedirectToAction("GetAll");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Deactive(Guid id)
+        {
+            var product = await _applicationDbContext.products.FirstOrDefaultAsync(x => x.ProductId == id);
+
+            if (product != null)
+            {
+                product.IsActive = false;
+                await _applicationDbContext.SaveChangesAsync();
+            }
+            return RedirectToAction("GetAll");
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var product = _applicationDbContext.products.FirstOrDefault(x => x.ProductId == id);
+            if (product != null)
+            {
+                _applicationDbContext.products.Remove(product);
+                await _applicationDbContext.SaveChangesAsync();
+                TempData["message"] = "Product deleted successfully";
+            }
+            return RedirectToAction("GetAll");
+
+
+
+            //    public IActionResult Index()
+            //{
+            //    return View();
+            //}
         }
     }
 }

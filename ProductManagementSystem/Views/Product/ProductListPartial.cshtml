@@ -1,0 +1,181 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    
+}
+@model List<EcommerceManagementProject.Models.Domain.ProductModel>
+
+
+
+@{
+    ViewData["Title"] = "GetAll";
+}
+
+<html>
+    <head>
+        <style>
+        :root {
+            --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+        }
+
+    
+
+        .card {
+            background: #222;
+            border: 1px solid #dd2476;
+            color: rgba(250, 250, 250, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            border: 5px solid;
+            border-image-slice: 1;
+            background: var(--gradient) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            border-image-source: var(--gradient) !important;
+            text-decoration: none;
+            transition: all .4s ease;
+        }
+
+            .btn:hover, .btn:focus {
+                background: var(--gradient) !important;
+                -webkit-background-clip: none !important;
+                -webkit-text-fill-color: #fff !important;
+                border: 5px solid #fff !important;
+                box-shadow: #222 1px 0 10px;
+                text-decoration: underline;
+            }
+            .top27{
+               top:20px;
+            }
+            .endm16{
+                right:-48px;
+            }
+            .borderR{
+                border-radius:4px;
+            }
+            .bgyello{
+                background:#ee3f3f;
+            }
+        </style>
+   
+     </head>
+    <body> 
+
+       @if(Model.Count>0 && Model.Any()){
+          <div class="container  mt-4">
+                <div class="row">
+                   @foreach (var x in Model)
+                   {
+
+                      <div class="col-md-3 m-4">
+                        <div class="card position-relative" style="width: 16rem;">
+                            <img src="/image/@x.ProductImageURL" class="card-img-top" style="height:12rem" alt="...">
+                            <div class="card-body">
+                                @if (x.IsTrending)
+                                {
+                                    <div class="position-absolute top27 endm16 borderR text-white bgyello translate-middle">
+                                        <p class="pe-3 ps-3 text-center">Trending</p>
+                                    </div>
+                                }
+                                <h5 class="card-title">@x.ProductName</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">@x.Category.CategoryName</h6>
+                                <div class="d-flex justify-content-between mb-2">
+                                   <div class="fs-4 fw-500">Price</div>
+                                    <div class="fs-4 fw-500" >@x.ProductPrice</div>
+                                </div>
+ 
+                                 @if (User.IsInRole("Admin"))
+                                {
+                                    <div class="d-flex justify-content-between">
+                                        <a href="/Product/Update/@x.ProductId" class="btn mr-2 text-center"><span class="ps-3 pe-3">Edit</span></a>
+                                        <a href="/Product/Deactive/@x.ProductId" class="btn deactive-btn text-center" data-id="@x.ProductId"> Deactive</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        <a href="#" class="btn w-100 text-center"><i class="fas fa-link pe-2 ps-2 text-center"></i> Add To Cart</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                      </div>
+                   }
+                </div>
+          </div>
+         
+    }
+    else
+    { 
+        <div class="d-flex justify-content-center  align-items-center vh-100">
+            <div class=" card p-5 w-25">
+                <div class="card-title text-center text-danger fs-5 fw-600">No Product are Persents</div>
+                <div class="card-body text-center"><a class="btn btn-success pl-2 pr-2" href="/Product/AddProduct">Add Product</a></div>
+            </div>
+        </div>
+     }
+    else
+    {
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="d-flex justify-content-center  align-items-center vh-100">
+            <div class=" card p-5 w-25">
+                <div class="card-title text-center text-danger fs-5 fw-600">No Product are Persents</div>
+                <div class="card-body text-center"><a class="btn btn-success pl-2 pr-2" href="/Product/AddProduct">Add Product</a></div>
+            </div>
+        </div>
+    }
+    }
+
+    @section Scripts{
+
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+
+    }
+</body>
+</html>
+
+    @* @section Scripts{
+   
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+        <script>
+        
+
+       
+        <script>
+            $(document).ready(function () {
+                // Add click event to the "Deactive" button
+                $(document).ready(function () {
+                    // Add click event to the "Deactive" button
+                    $('.deactive-btn').on('click', function (e) {
+                        e.preventDefault();
+
+                        // Get the product ID from the button's data-id attribute
+                        var productId = $(this).data('id');
+
+                        // Show SweetAlert2 confirmation dialog
+                        Swal.fire({
+                            title: "Are you sure?",
+                            text: "You won't be able to revert this!",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Yes, deactivate it!"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Perform the deactivation action
+                                window.location.href = $(this).attr('href');
+                            }
+                        });
+                    });
+                });
+        </script>
+    }
+ </body>
+ </html> *@

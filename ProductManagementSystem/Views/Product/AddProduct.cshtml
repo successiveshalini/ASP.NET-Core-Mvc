@@ -1,5 +1,6 @@
 ﻿
-@model EcommerceManagementProject.Models.Dto.AddProductDto;
+
+@model EcommerceManagementProject.Models.Dto.AddProductDto
 
 @{
     ViewData["Title"] = "AddProduct";
@@ -7,18 +8,17 @@
 }
 
 <html>
-<head>
-    <style>
-        body {
-            overflow-y: hidden;
-        }
-
-        .mt200 {
-            margin-top: 200px;
-        }
-    </style>
-</head>
-<body>
+    <head>
+        <style>
+            body{
+               overflow-y:hidden;
+            }
+            .mt200{
+                margin-top:200px;
+            }
+        </style>
+    </head>
+    <body>
 
     <div class="container overflow-hidden">
         <div class="row">
@@ -29,8 +29,8 @@
                     <form asp-action="AddProduct" method="post" enctype="multipart/form-data" asp-controller="Product" class="form-control p-5">
                         <h2 class="p-3 text-center">Add Product</h2>
                         <div class="form-group mt-3">
-                            @* <select class="form-select" aria-label="Default select example" asp-for="CategoryRefId">
-
+                            <select class="form-select" aria-label="Default select example" asp-for="CategoryRefId">
+                                
                                 @if (categoryList != null)
                                 {
                                     @foreach (var x in categoryList)
@@ -45,8 +45,8 @@
                                         }
                                     }
                                 }
-                            </select> *@
-                        </div>
+                            </select>
+                   
                         <div class="form-group mt-3">
                             <input asp-for="ProductName" class="form-control" type="text" placeholder="Product Name" />
                             <span asp-validation-for="ProductName" class="text-danger"></span>
@@ -64,7 +64,6 @@
                             <span asp-validation-for="ProductImage" class="text-danger"></span>
                         </div>
                         <button type="submit" class="btn btn-primary mt-3">Add Product</button>
-                        
                     </form>
                 </div>
             </div>
@@ -74,6 +73,6 @@
                 </div> *@
             </div>
         </div>
-    </div>
-</body>
-</html>
+     </div>
+    </body>
+</html> 

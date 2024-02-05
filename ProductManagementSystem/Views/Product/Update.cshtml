@@ -1,0 +1,82 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model EcommerceManagementProject.Models.Dto.UpdateProductDto
+
+@{
+    ViewData["Title"] = "UpdateProduct";
+    var categoryList = ViewBag.CategoryList;
+}
+
+<html>
+    <head>
+        <style>
+        
+        </style>
+    </head>
+    <body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        
+
+        <form asp-action="Update" method="post" enctype="multipart/form-data" asp-controller="Product" class="form-control w-50 p-5">
+        <h2 class="mb-3">Update Product</h2>
+            <div class="form-group mb-3">
+                <label asp-for="ProductId"></label>
+                <input asp-for="ProductId" class="form-control" placeholder="Product Id" readonly />
+                <span asp-validation-for="ProductId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductName"></label>
+                <input asp-for="ProductName" class="form-control" type="text" placeholder="Product Name" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductDes"></label>
+                <input asp-for="ProductDes" class="form-control" type="text" placeholder="Product Description" />
+                <span asp-validation-for="ProductDes" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductPrice"></label>
+                <input asp-for="ProductPrice" class="form-control" type="number" placeholder="Product Price" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductImage"></label>
+                <input asp-for="ProductImage" class="form-control" type="file" placeholder="Product Image" />
+                <span asp-validation-for="ProductImage" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="IsAvailable"></label>
+                <input asp-for="IsAvailable" type="checkbox" />
+                <span asp-validation-for="IsAvailable" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="IsTrending"></label>
+                <input asp-for="IsTrending" type="checkbox" />
+                <span asp-validation-for="IsTrending" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <select class="form-select" aria-label="Default select example" asp-for="CategoryRefId">
+                    <option selected value="00000000-0000-0000-0000-000000000000">All</option>
+                    @if (categoryList != null)
+                    {
+                        @foreach (var x in categoryList)
+                        {
+
+                            @if (x.CategoryName != "All")
+                            {
+                                <option value="@x.CategoryId">@x.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Product</button>
+        </form>
+          </div>
+    </body>
+</html>
+ 

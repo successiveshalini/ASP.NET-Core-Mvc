@@ -1,0 +1,67 @@
+﻿@* 
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+} 
+@* @using System.Collections; *@
+@model List<EcommerceManagementProject.Models.Domain.ProductModel>
+
+@* @{
+    ViewData["Title"] = "GetAll";
+    var CategoryList = ViewBag.CategoryList as List<EcommerceManagementProject.Models.Domain.ProductModel>;
+} *@
+
+<html>
+<head>
+    <style></style>
+</head>
+<body>
+    <h3 class="m-3">All Products</h3>
+
+
+    <table class="table table-dark  table-striped-columns">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Product Price</th>
+                <th>Is Available</th>
+                <th>Is Trending</th>
+                <th>Category Name</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                @foreach (var Product in Model)
+                {
+                    <tr>
+                        <td>@Product.ProductName</td>
+                        <td>@Product.ProductDesc</td>
+                        <td>@Product.ProductPrice</td>
+                        <td>@Product.IsActive</td>
+                        <td>@Product.IsTrending</td>
+                        <td>@Product.Category.CategoryName</td>
+                        <td>@Product.ProductCreatedAt.ToString("dd-MM-yyyy")</td>
+                        <td>
+                            <a class="btn btn-primary" href="/Product/Update/@Product.ProductId">Edit</a>
+                            @if (Product.IsActive)
+                            {
+                                <a class="btn btn-danger" href="/Product/Deactive/@Product.ProductId">Deactive</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success" href="/Product/Active/@Product.ProductId">Active</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+
+</body>
+</html>

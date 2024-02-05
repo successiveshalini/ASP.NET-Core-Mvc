@@ -33,17 +33,22 @@
             <div class="me-5">
                 <a class="btn btn-success" href="/Product/AddProduct">Add New Product</a>
             </div>
-            <div class="form-outline" data-mdb-input-init>
-                <input type="search" id="form1" class="form-control" />
-                <label class="form-label" for="form1">Search</label>
-            </div>
+        <div class="input-group d-flex justify-content-end ">
+            <form id="searchForm" asp-action="GetProductsByCategory" asp-controller="Product">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search products..." value="" id="searchInput" name="searchQuery">
+                    <button class="btn btn-outline-primary" type="submit" id="searching">Search</button>
+                    <button type="button" class="btn btn-outline-danger" id="resetButton">Reset</button>
+                </div>
+            </form>
+        </div>
             <div class="mt-2 ms-2">
                 <i class="bi bi-search"></i>
             </div>
         </div>
     </div>
 
-<table class="table"  table-striped-columns">
+<@* table class="table"  table-striped-columns">
         <thead>
             <tr>
                 <th>Product Name</th>
@@ -73,7 +78,7 @@
                         <a class="btn btn-primary" href="/Product/Update/@product.ProductId">Edit</a>
                             @if (product.IsActive)
                             {
-                                <a class="btn btn-danger" href="/Product/Deactive/@product.ProductId">Delete</a>
+                                <a class="btn btn-danger" href="/Product/Deactive/@product.ProductId">DeActive</a>
                             }
                             else
                             {
@@ -85,8 +90,56 @@
                 }
             }
         </tbody>
-    </table> 
+    </table>  *@
 
     <div id="productTableBody">
 
     </div>
+
+@section Scripts{
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        var getProducts = function () {
+            $.ajax({
+                url: '@Url.Action("GetAllByCategory", "Product")',
+                type: 'GET',
+                data: {
+                    categoryId: $('#categoryId').val(),
+                    searchingQuery: $('#searchInput').val(),
+                    sortOrder: $('#sortOrder').val(),
+                },
+                success: function (data) {
+                        $('#productTableBody').html(data);
+                },
+                error: function () {
+                    console.log('Error fetching products');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            getProducts();
+        });
+
+        $("#categoryId, #searching,#sortOrder").change(function () {
+            getProducts();
+        });
+
+        $(function () {
+            $("#searchForm").submit(function (event) {
+                // Prevent the default form submission
+                event.preventDefault();
+                getProducts();
+            });
+        });
+
+        $("#resetButton").click(function () {
+            // Clear search input and reload original state
+            $('#searchInput').val('');
+            getProducts();
+        });
+
+    </script>
+    
+}
