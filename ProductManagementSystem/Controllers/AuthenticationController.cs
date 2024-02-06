@@ -84,7 +84,7 @@ namespace EcommerceManagementProject.Controllers
                 {
                     if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                     {
-                        return RedirectToAction( "Authentication");
+                        return RedirectToAction("GetAllUser", "Admin");
                     }
                     await _userManager.AddToRoleAsync(user, Roles.User.ToString());
                     await _signInManager.SignInAsync(user, isPersistent: false);

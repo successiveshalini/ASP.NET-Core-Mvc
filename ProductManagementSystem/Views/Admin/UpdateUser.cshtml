@@ -1,0 +1,75 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model EcommerceManagementProject.Models.Dto.UpdateUserDto;
+<div class="container-fluid px-4 mb-5">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h4 class="mb-4">UPDATE USER</h4>
+                <form method="post" asp-action="UpdateUser">
+                     <input type="hidden" asp-for="userId" />  
+                    <div class="form-floating mb-3">
+                        <input asp-for="FirstName" type="text" class="form-control" id="floatingInput"
+                               placeholder="First Nmae">
+                        <label asp-for="FirstName"> First Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="LastName" type="text" class="form-control" id="floatingInput"
+                               placeholder="User LastName">
+                        <label asp-for="LastName">First Name</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Email" type="text" class="form-control" id="floatingInput"
+                               placeholder="User Email">
+                        <label asp-for="Email"></label>
+                    </div>
+
+                     @* <div class="d-flex flex-row align-items-center mb-2">
+
+                        <div class="form-outline flex-fill mb-0">
+                            <input type="password" id="form3Example4c" class="form-control" asp-for="OldPassworrd" />
+                            <label class="form-label" for="form3Example4c">Old Password</label>
+                            <span asp-validation-for="OldPassworrd" class="text-danger"></span>
+                        </div> *
+                    </div> *@
+                   @*  <div class="d-flex flex-row align-items-center mb-2">
+
+                        <div class="form-outline flex-fill mb-0">
+                            <input type="password" id="form3Example4c" class="form-control" asp-for="NewPassword" />
+                            <label class="form-label" for="form3Example4c">New Password</label>
+                            <span asp-validation-for="NewPassword" class="text-danger"></span>
+                        </div>
+                    </div> *@
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Address" type="text" class="form-control" id="floatingInput"
+                               placeholder="User Address">
+                        <label asp-for="Address">Address</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input asp-for="Password" type="text" class="form-control" id="floatingInput"
+                               placeholder="User Address">
+                        <label asp-for="Password">User ConfirmPassword</label>
+                    </div>
+
+
+                    <div>
+                        <button class="btn btn-warning btn-sm" type="submit">
+                            <i class="bi bi-pencil-square"></i>
+                            Update
+                        </button>
+                        <a asp-controller="Admin" asp-action="GetAllUser" class="btn btn-danger btn-sm float-end" type="submit">
+                            <i class="bi bi-x-circle"></i>
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -51,7 +51,7 @@ namespace EcommerceManagementProject.Controllers
                     product = product.OrderByDescending(x => x.ProductPrice).ToList();
                     break;
             }
-            return PartialView("AllProductByCategory", product);
+            return PartialView("AllProductByCategory",product);
         }
 
         

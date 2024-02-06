@@ -48,50 +48,8 @@
         </div>
     </div>
 
-<@* table class="table"  table-striped-columns">
-        <thead>
-            <tr>
-                <th>Product Name</th>
-                <th>Product Description</th>
-                <th>Product Price</th>
-                <th>Is Available</th>
-                <th>Is Trending</th>
-                <th>Category Name</th>
-                <th>Created At</th>
-            <th>Buttons for Modify Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @if (Model != null)
-            {
-                @foreach (var product in Model)
-                {
-                    <tr>
-                        <td>@product.ProductName</td>
-                        <td>@product.ProductDesc</td>
-                        <td>@product.ProductPrice</td>
-                        <td>@product.IsActive</td>
-                        <td>@product.IsTrending</td>
-                        <td>@product.Category.CategoryName</td>
-                        <td>@product.ProductCreatedAt.Date.ToString("dd-MM-yyyy")</td>
-                        <td>
-                        <a class="btn btn-primary" href="/Product/Update/@product.ProductId">Edit</a>
-                            @if (product.IsActive)
-                            {
-                                <a class="btn btn-danger" href="/Product/Deactive/@product.ProductId">DeActive</a>
-                            }
-                            else
-                            {
-                                <a class="btn btn-success" href="/Product/Active/@product.ProductId">Active</a>
-                            }
-                        
-                        </td>
-                    </tr>
-                }
-            }
-        </tbody>
-    </table>  *@
-
+>  
+  
     <div id="productTableBody">
 
     </div>
