@@ -16,7 +16,7 @@ namespace EcommerceManagementProject.Data
 
         public DbSet<CartsModel> Carts { get; set; }
 
-
+        public DbSet<FavModel> Favorites { get; set; }
 
 
     }

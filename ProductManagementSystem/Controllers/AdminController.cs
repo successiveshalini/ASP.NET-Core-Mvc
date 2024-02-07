@@ -51,7 +51,6 @@ namespace EcommerceManagementProject.Controllers
                 Password = user.Password,
                 ConfirmPassword = user.ConfirmPassword,
 
-
             };
             return View(finalUser);
         }
@@ -124,7 +123,30 @@ namespace EcommerceManagementProject.Controllers
 
 
 
-
+        [HttpGet]
+        public IActionResult DeactiveUser(string id)
+        {
+            var user = userManager.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.IsActive = false;
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("GetAllUser", "Admin");
+        }
+        [HttpGet]
+        public IActionResult ActivateUser(string id)
+        {
+            var user = userManager.Users.FirstOrDefault(x => x.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            user.IsActive = true;
+            _applicationDbContext.SaveChanges();
+            return RedirectToAction("GetAllUser", "Admin");
+        }
 
     }
 

@@ -13,8 +13,16 @@ namespace EcommerceManagementProject.Controllers
         private readonly UserManager<UserModel> _userManager;
         private readonly SignInManager<UserModel> _signInManager;
 
+        public CartController(ApplicationDbContext applicationDbContext, UserManager<UserModel> userManager, SignInManager<UserModel> signInManager)
+        {
+            _applicationDbContext = applicationDbContext;
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
+
         public IActionResult Index()
         {
+            
             return View();
         }
     }

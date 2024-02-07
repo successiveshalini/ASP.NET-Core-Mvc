@@ -130,7 +130,7 @@ namespace EcommerceManagementProject.Controllers
                     ProductDes = product.ProductDesc,
                     IsAvailable = product.IsActive,
                     IsTrending = product.IsTrending,
-                    /* ProductImage = product.ProductImage,*/
+                    ProductImageUrl = product.ProductImageURL,
                     CategoryRefId = product.CategoryId,
                     Category = product.Category,
                 };

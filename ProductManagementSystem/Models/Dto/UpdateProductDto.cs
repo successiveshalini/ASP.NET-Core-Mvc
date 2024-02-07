@@ -11,6 +11,7 @@ namespace EcommerceManagementProject.Models.Dto
 
         public int ProductPrice { get; set; }
 
+        public string ProductImageUrl  { get; set; }
         public IFormFile ProductImage { get; set; }
 
         public bool IsAvailable { get; set; }

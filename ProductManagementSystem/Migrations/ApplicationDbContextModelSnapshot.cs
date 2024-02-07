@@ -72,6 +72,24 @@ namespace EcommerceManagementProject.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("EcommerceManagementProject.Models.Domain.FavModel", b =>
+                {
+                    b.Property<Guid>("FavId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ProductRefId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FavId");
+
+                    b.ToTable("Favorites");
+                });
+
             modelBuilder.Entity("EcommerceManagementProject.Models.Domain.ProductModel", b =>
                 {
                     b.Property<Guid>("ProductId")
@@ -143,6 +161,9 @@ namespace EcommerceManagementProject.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");

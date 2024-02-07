@@ -19,7 +19,7 @@
     <h3 class="m-3">All Products</h3>
 
 
-    <table class="table"  table-striped-columns">
+    <table table-striped-columns">
         <thead>
             <tr>
                 <th>Product Name</th>
@@ -46,10 +46,10 @@
                         <td>@Product.Category.CategoryName</td>
                         <td>@Product.ProductCreatedAt.ToString("dd-MM-yyyy")</td>
                         <td>
-                            <a class="btn btn-primary" href="/Product/Update/@Product.ProductId">Edit</a>
+                            <a class="btn btn-danger" href="/Product/Update/@Product.ProductId">Edit</a>
                             @if (Product.IsActive)
                             {
-                                <a class="btn btn-danger" href="/Product/Deactive/@Product.ProductId">Deactive</a>
+                                <a class="btn btn-light" href="/Product/Deactive/@Product.ProductId">Deactive</a>
                             }
                             else
                             {

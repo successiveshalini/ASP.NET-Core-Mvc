@@ -54,14 +54,24 @@
                                     
                                     <td>
                                         <div class="btn-group" role="group">
-                                          
+                                            @if (user.IsActive)
+                                            {
                                                 <a asp-action="UpdateUser" asp-route-id="@user.Id" class="btn small btn-sm btn-warning mx-2">
                                                     <i class="bi bi-pencil-square"></i> Update
                                                 </a>
-                                                <a asp-action="DeactiveUser" asp-route-id="@user.UserId" class="btn small btn-sm btn-danger deactive-btn">
+                                                <a asp-action="DeactiveUser" asp-route-id="@user.Id" class="btn small btn-sm btn-danger deactive-btn">
                                                     <i class="bi bi-trash-fill"></i> Deactive
                                                 </a>
-                                            
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="UpdateUser" asp-route-id="@user.Id" class="btn disabled small btn-sm btn-warning mx-2" style="cursor:not-allowed !important;">
+                                                    <i class="bi bi-pencil-square"></i> Update
+                                                </a>
+                                                <a asp-action="ActivateUser" asp-route-id="@user.Id" class="btn small btn-sm btn-success">
+                                                    <i class="bi bi-check-circle-fill"></i> Active
+                                                </a>
+                                            }
                                         </div>
                                     </td>
                                 </tr>

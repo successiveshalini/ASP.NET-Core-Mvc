@@ -1,8 +1,297 @@
-﻿ @{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome To Product Management</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4 text-danger">Welcome To Product Management System</h1>
+
+   
+</div>
+
+﻿ ﻿@{
+    var CategoryList = ViewBag.CategoryList as List<EcommerceManagementProject.Models.Domain.CategoryModel>;
+    ViewData["Title"] = "Admin Dashboard";
+}
+@model List<EcommerceManagementProject.Models.Domain.ProductModel>;
+<head>
+
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/2.7.6/idangerous.swiper.css'>
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<style>
+    .product-card {
+        width: 13rem;
+        margin: auto;
+        border: 1rem solid white;
+        box-shadow: 0 0 1rem rgba(33, 33, 33, .2);
+    }
+
+    #product-card .swiper-container,
+    #product-card .swiper-slide img,
+    #product-card .product-card-thumbnail-image {
+        width: 12rem;
+        height: 13rem;
+    }
+
+    #product-card .swiper-container {
+        display: none;
+    }
+
+    #product-card .pagination {
+        text-align: center;
+        display: none;
+    }
+
+    #product-card .swiper-pagination-switch {
+        display: inline-block;
+        width: 0.5rem;
+        height: 0.5rem;
+        border-radius: 1rem;
+        background: white;
+        box-shadow: 0 0.1rem .2rem #555 inset;
+        margin: 0 0.15rem;
+        cursor: pointer;
+    }
+
+    #product-card .swiper-active-switch {
+        background: gray;
+    }
+
+    #product-card .product-details {
+        margin: 0;
+        padding: 0;
+        padding-top: 0.5rem;
+    }
+
+        #product-card .product-details .book-title {
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        #product-card .product-details .author {
+            font-size: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        #product-card .product-details .rating .fa-star {
+            color: orange;
+            margin: 0;
+            padding: 0;
+        }
+
+    #product-card .product-quality .input-chip {
+        display: inline-flex;
+        margin-top: .2rem;
+        padding: 0 .5rem;
+        height: 1.8rem;
+        font-size: 1rem;
+        background-color: #f1f1f1;
+        align-items: center;
+    }
+
+    #product-card .product-quality .active {
+        background-color: rgba(20, 150, 20, 0.4);
+    }
+
+    #product-card .product-quality .input-chip input {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
+
+    #product-card .price {
+        margin: 0;
+        padding: 0;
+        margin-top: 0.2rem;
+    }
+
+        #product-card .price span {
+            padding-right: 0.3rem;
+        }
+
+        #product-card .price .new-price {
+            font-size: 1.5rem;
+            color: darkslategrey;
+        }
+
+        #product-card .price .discount {
+            font-size: 1rem;
+            color: green;
+        }
+
+        #product-card .price del {
+            color: red;
+        }
+
+    #show_on_hover {
+        display: none;
+        padding-bottom: 0.5rem;
+        justify-content: space-between;
+    }
+
+    #product-card .add-to-card {
+        border: 0.05rem solid black;
+        background-color: white;
+        color: black;
+        padding: 0.3rem 0.3rem;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    #product-card .add-to-card {
+        border-color: black;
+        color: black;
+    }
+
+        #product-card .add-to-card:hover {
+            border-color: darkgreen;
+            color: green;
+        }
+
+    #product-card .heart {
+        padding: 0.3rem 0;
+        font-size: 1.5rem;
+        color: darkgray;
+    }
+
+        #product-card .heart:hover {
+            color: deeppink;
+            cursor: pointer;
+        }
+
+</style>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm bgaqua d-none  ">
+    <!-- Your navbar content here -->
+    <nav class="navbar navbar-expand-lg d-flex justify-content-between  bgaqua w-100">
+        <div class="container-fluid">
+            @* <a class="navbar-brand text-white" href="#">Admin Dashboard</a> *@
+            <div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto ">
+                        <li class="nav-item">
+                            <form class="d-flex">
+                                <input class="form-control me-2 ms-4" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-success text-white" type="submit">Search</button>
+                            </form>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-md-4 mt-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="fs-4"> Hello </span><span class="fst-italic fw-bold fs-4">@User.Identity!.Name</span>
+                            </a>
+                            <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" asp-acti="Logout" asp-controller="Authentication">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</nav>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-2 bggrey vh-100">
+            <div class="input-group mt-2">
+                <form id="searchForm" asp-action="GetProductsByCategory" asp-controller="Product">
+                    <!-- Your search form content -->
+                </form>
+            </div>
+            <select class="form-select mt-5" id="categoryId">
+                @if (CategoryList != null && CategoryList.Count > 0)
+                {
+                    @foreach (var x in CategoryList)
+                    {
+                        <option value="@x.CategoryId">@x.CategoryName</option>
+                    }
+                }
+            </select>
+            <div class="btn-group dropend mt-5">
+                <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-grabbed="false">
+                    Manage Users
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/Admin/GetAllUser">All Users</a></li>
+                    <li><a class="dropdown-item" href="/Admin/AddNewUser">Add New User</a></li>
+                </ul>
+            </div>
+            <div class="btn-group dropend mt-5">
+                <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Products
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
+                    <li><a class="dropdown-item" href="/Product/AddProduct">Add Product</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <section>
+                <div class="container py-5">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach (var product in Model)
+                        {
+                            <div class="col">
+                                <div class="product-card" id="product-card">
+                                    <img src="/image/@product.ProductImageURL" class="product-card-thumbnail-image">
+                                    <div class="pagination"></div>
+                                    <div class="product-details">
+                                        <div id="hide_on_hover">
+                                            <p class="book-title">@product.ProductName</p>
+                                        </div>
+                                        <div id="show_on_hover">
+                                            <i class="material-icons heart">favorite</i>
+                                            <button class="btn add-to-cart">Add product</button>
+                                        </div>
+                                        <div class="not_change_on_hover">
+                                            <div class="product-quality">
+                                                <div class="input-chip active">
+                                                    @*
+                                                <button type="submit" class="btn btn-primary">Add Product</button> *@
+                                                </div>
+                                                <div class="input-chip">
+                                                    @* <button type="button" class="btn btn-secondary">Edit</button> *@
+                                                </div>
+                                                <div class="input-chip">
+                                                    @*  <button type="button" class="btn btn-danger">Delete</button> *@
+                                                </div>
+                                            </div>
+                                            <div class="price">
+                                                <span class="new-price">@product.ProductPrice</span>
+                                            </div>
+                                            @if(!User.IsInRole("Admin"))
+                                            {
+                                                <div class="row pt-1">
+                                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between" style="width:18rem">
+                                                            <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Favorites</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
 </div>
