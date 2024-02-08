@@ -5,7 +5,6 @@ namespace EcommerceManagementProject.Models.Domain
 {
     public class UserModel : IdentityUser
     {
-        [Key]
         public int UserId { get; set; }
 
         [Required]
@@ -38,6 +37,8 @@ namespace EcommerceManagementProject.Models.Domain
         public string ConfirmPassword { get; set; }
 
         public bool IsActive { get; set; } = true;
+
+        public virtual CartsModel Carts { get; set; }
     }
 }
 

@@ -15,6 +15,12 @@ namespace EcommerceManagementProject.Models.Domain
 
         public Guid UserRefId { get; set; }
 
+        public string UserId { get; set; }
+
+        public Guid ProductId { get; set; }
+
         public UserModel User { get; set; }
+
+
     }
 }

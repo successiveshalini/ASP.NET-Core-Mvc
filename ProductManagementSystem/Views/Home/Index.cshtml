@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var prices = new List<int?> { 500, 1000, 2000, 5000, 10000, 50000, 100000 };
 }
 
 <div class="text-center">
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <link rel="stylesheet" href="css/style.css">
+    <style class="bg-dark "></style>
 
 </head>
 <style>
@@ -209,7 +211,7 @@
                     <!-- Your search form content -->
                 </form>
             </div>
-            <select class="form-select mt-5" id="categoryId">
+            <select class="form-select mt-5" id="categoryDropdown">
                 @if (CategoryList != null && CategoryList.Count > 0)
                 {
                     @foreach (var x in CategoryList)
@@ -218,27 +220,129 @@
                     }
                 }
             </select>
-            <div class="btn-group dropend mt-5">
-                <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-grabbed="false">
-                    Manage Users
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/Admin/GetAllUser">All Users</a></li>
-                    <li><a class="dropdown-item" href="/Admin/AddNewUser">Add New User</a></li>
-                </ul>
+            <div class="mx-auto">
+                <label for="priceDropdown" class="form-label">Select Price Range:</label>
+                <select id="priceDropdown" class="form-select">
+                    <option value="">All Prices</option>
+                    @foreach (var price in prices)
+                    {
+                        <option value="@price">
+                            @($"Under {price}")
+                        </option>
+                    }
+                </select>
             </div>
-            <div class="btn-group dropend mt-5">
-                <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    Products
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
-                    <li><a class="dropdown-item" href="/Product/AddProduct">Add Product</a></li>
-                </ul>
+
+            <div class="ms-auto">
+                <div class="mb-3">
+                    <label for="searchInput" class="form-label">Search by Name:</label>
+                    <input type="search" id="searchInput" class="form-control" placeholder="Enter product name">
+                </div>
             </div>
+            @if(User.IsInRole("Admin"))
+            {
+                <div class="btn-group dropend mt-5">
+                    <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-grabbed="false">
+                        Manage Users
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/Admin/GetAllUser">All Users</a></li>
+                        <li><a class="dropdown-item" href="/Admin/AddNewUser">Add New User</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group dropend mt-5">
+                    <button type="button" class="btn btn-outline-info w-100 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        Products
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
+                        <li><a class="dropdown-item" href="/Product/AddProduct">Add Product</a></li>
+                    </ul>
+                </div>
+            }
+            
         </div>
+
         <div class="col-md-10">
-            <section>
+            <section id="productListContainer">
+                <h1>Trending Products</h1>
+                <div class="container py-5">
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        @foreach (var product in Model)
+                        {
+                            if(product.IsTrending)
+                            {
+                                <div class="col">
+                                    <div class="product-card" id="product-card">
+                                        <img src="/image/@product.ProductImageURL" class="product-card-thumbnail-image">
+                                        <div class="pagination"></div>
+                                        <div class="product-details">
+                                            <div id="hide_on_hover">
+                                                <p class="book-title">@product.ProductName</p>
+                                            </div>
+                                            <div id="show_on_hover">
+                                                <i class="material-icons heart">favorite</i>
+                                                <button class="btn add-to-cart">Add product</button>
+                                            </div>
+                                            <div class="not_change_on_hover">
+                                                <div class="product-quality">
+                                                    <div class="input-chip active">
+                                                        @*
+                                                <button type="submit" class="btn btn-primary">Add Product</button> *@
+                                                    </div>
+                                                    <div class="input-chip">
+                                                        @* <button type="button" class="btn btn-secondary">Edit</button> *@
+                                                    </div>
+                                                    <div class="input-chip">
+                                                        @*  <button type="button" class="btn btn-danger">Delete</button> *@
+                                                    </div>
+                                                </div>
+                                                <div class="price">
+                                                    <span class="new-price">@product.ProductPrice</span>
+                                                </div>
+                                                @if (!User.IsInRole("Admin"))
+                                                {
+                                                    <div class="row pt-1">
+                                                        <div class="col-9 mb-1 d-flex justify-content-between">
+                                                            <div class="d-flex justify-content-between" style="width:18rem">
+                                                                <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Favorites</a>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                                @if (!User.IsInRole("Admin"))
+                                                {
+                                                    <div class="row pt-1">
+                                                        <div class="col-9 mb-1 d-flex justify-content-between">
+                                                            <div class="d-flex justify-content-between" style="width:18rem">
+                                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Cart</a>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            
+                        }
+                    </div>
+                </div>
+
+
+
+
+
+
+                <h1>All products</h1>
                 <div class="container py-5">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         @foreach (var product in Model)
@@ -277,7 +381,23 @@
                                                     <div class="col-9 mb-1 d-flex justify-content-between">
                                                         <div class="d-flex justify-content-between" style="width:18rem">
                                                             <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Favorites</a>
+                                                           
                                                         </div>
+                                                        
+                                                       
+                                                    </div>
+                                                </div>
+                                            }
+                                            @if (!User.IsInRole("Admin"))
+                                            {
+                                                <div class="row pt-1">
+                                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                                        <div class="d-flex justify-content-between" style="width:18rem">
+                                                            <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Cart</a>
+
+                                                        </div>
+
+
                                                     </div>
                                                 </div>
                                             }
@@ -295,3 +415,46 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#searchInput").on("input", function () {
+                var categoryId = $("#categoryDropdown").val();
+                var priceRange = $("#priceDropdown").val();
+                var productName = $(this).val();
+
+                $.ajax({
+                    url: "/Home/GetProductsByCategoryPriceAndName",
+                    method: "GET",
+                    data: { categoryId: categoryId, priceRange: priceRange, productName: productName },
+                    success: function (result) {
+                        $("#productListContainer").html(result);
+                    },
+                    error: function () {
+                        console.error("Error fetching products");
+                    }
+                });
+            });
+
+            $("#categoryDropdown, #priceDropdown").change(function () {
+                var categoryId = $("#categoryDropdown").val();
+                var priceRange = $("#priceDropdown").val();
+
+                $.ajax({
+                    url: "/Home/GetProductsByCategoryPriceAndName",
+                    method: "GET",
+                    data: { categoryId: categoryId, priceRange: priceRange, productName: $("#searchInput").val() },
+                    success: function (result) {
+                        $("#productListContainer").html(result);
+                    },
+                    error: function () {
+                        console.error("Error fetching products");
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}

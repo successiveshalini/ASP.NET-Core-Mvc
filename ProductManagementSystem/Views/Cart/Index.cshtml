@@ -1,0 +1,161 @@
+﻿@model List<EcommerceManagementProject.Models.Domain.CartsModel>;
+@using Microsoft.AspNetCore.Identity
+@using EcommerceManagementProject.Models.Domain;
+@inject SignInManager<UserModel> signInManager;
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+@if (!signInManager.IsSignedIn(User))
+{
+    <h1 class="text-danger text-center">Please login to View your Cart</h1>
+    return;
+}
+
+@if (Model.Count <= 0)
+{
+    <h1 class="text-danger text-center">No Products in Cart</h1>
+    return;
+}
+@* <style>
+    .amount-box {
+        display: flex;
+        gap: .3rem;
+    }
+
+        .amount-box > a, .amount-box > div {
+            width: 2rem;
+            border-radius: .3rem;
+            aspect-ratio: 1;
+            background-color: #e0f2f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            color: #191a3cee;
+            cursor: pointer;
+        }
+
+        .amount-box > div {
+            cursor: auto;
+            background-color: white;
+            border: 1px solid black;
+        }
+
+    .amount {
+        width: 2.5rem;
+        border: 1px solid #d1d1d1;
+        outline: none;
+        border-radius: .3rem;
+        text-align: center;
+        color: #191a3c;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+</style> *@
+
+<div class="container-fluid mb-5 ">
+    @foreach (var item in Model)
+    {
+        <div class="row d-flex  flex-column align-items-center ">
+            <div class="col col-lg-8 mb-4 mb-lg-0">
+                <div class="card mb-3" style="border-radius: .5rem;">
+                    <div class="row g-0">
+                        <div class="col-md-3 gradient-custom text-center p-1"
+                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                            <img src="~/image/@item.Product.ProductImageURL"
+                                 alt="Product" class="img-fluid my-3" style="width:15rem" />
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body p-4">
+                                <h6 class="fw-bold">Order Details</h6>
+                                <hr class="mt-0 mb-4">
+                                <div class="row pt-1">
+                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                        <h6>Product Name</h6>
+                                        <p class="text-muted">@item.Product.ProductName</p>
+                                    </div>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                        <h6>Product Price</h6>
+                                        <p class="text-muted">&#8377; @item.Product.ProductPrice</p>
+                                    </div>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                        <h6>Quantity</h6>
+                                        <p class="text-muted">@item.CartItems</p>
+                                    </div>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                        <h6>Amount</h6>
+                                        <p class="text-muted">&#8377; @(item.Product.ProductPrice * item.CartItems)</p>
+                                    </div>
+                                </div>
+                                <div class="row pt-1">
+                                    <div class="col-9 mb-1 d-flex justify-content-between">
+                                        <div class="d-flex justify-content-between">
+                                            <a asp-action="OrderDelete" asp-controller="Cart" asp-route-id="@item.CartId" class="btn btn-danger remove">Remove from cart</a>
+                                        </div>
+                                        <div class="amount-box d-flex align-items-center">
+                                            <a asp-action="Reduce" asp-controller="Cart" asp-route-id="@item.CartId" class="minus-box">
+                                                <i class="fa fa-minus"></i>
+                                            </a>
+                                            <div>@item.CartItems</div>
+                                            <a asp-action="Add" asp-controller="Cart" asp-route-id="@item.ProductId" class="plus-box">
+                                                <i class="fa fa-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Scripts {
+    <script src="~/js/ProductTable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Add click event to the "Deactive" button
+            $('.remove').on('click', function (e) {
+                e.preventDefault();
+
+                // Get the product ID from the button's data-id attribute
+                var productId = $(this).data('id');
+
+                // Show SweetAlert2 confirmation dialog
+                Swal.fire({
+                    title: "Are you sure to Remove it?",
+                    text: "You can't revert this!!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Remove it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Perform the deactivation action
+                        window.location.href = $(this).attr('href');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -45,9 +45,9 @@
             </div>
             <div class="form-group mb-3">
                 <label asp-for="ProductImage"></label>
-                <input asp-for="ProductImage" class="form-control" type="file" placeholder="Product Image" />
+                <input asp-for="ProductImage" class="form-control" type="file" placeholder="Product Image" id="ChooseImage"/>
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
-                <img src="/image/@Model.ProductImageUrl" style="height:100px; width:100px;"/>
+                <img src="/image/@Model.ProductImageUrl" style="height:100px; width:100px;" id="PreviewImage"/>
             </div>
             <div class="form-group mb-3">
                 <label asp-for="IsAvailable"></label>
@@ -81,3 +81,22 @@
     </body>
 </html>
  
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#ChooseImage').change(function (e) {
+                var url = $('#ChooseImage').val()
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase()
+                if (ChooseImage.files && ChooseImage.files[0] && (ext == "gif" || ext == "jpg" || ext == "jfif" || ext == "png" || ext == "bmp")) {
+                    var reader = new FileReader()
+                    reader.onload = function () {
+                        var output = document.getElementById('PreviewImage');
+                        output.src = reader.result
+                    }
+                    reader.readAsDataURL(e.target.files[0])
+                }
+            });
+        });
+
+    </script>
+}

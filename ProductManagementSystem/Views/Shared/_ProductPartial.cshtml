@@ -1,0 +1,82 @@
+﻿@using EcommerceManagementProject.Models.Domain;
+@using Microsoft.AspNetCore.Identity
+@model List<EcommerceManagementProject.Models.Domain.ProductModel>
+
+@inject SignInManager<UserModel> signInManager;
+
+
+@if (Model.Count == 0)
+{
+    <h2 class="text-danger mb-5">No Products to View</h2>
+    return;
+}
+
+<div class="container mb-5">
+    <div class="row g-5 py-3">
+        @foreach (var product in Model)
+        {
+            <div class="col-md-3">
+                <div class="product-single-card">
+                    <div class="product-top-area">
+                        @if (product.IsTrending)
+                        {
+                            <div class="trending-label">Trending</div>
+                        }
+                        <div class="product-discount">
+                            &#8377;@product.ProductPrice
+                        </div>
+
+                        <div class="product-img">
+                            <div class="first-view">
+                                <img src="/ProductImage/@product.ProductImageURL" alt="logo" class="img-fluid">
+                            </div>
+                            <div class="@(User.IsInRole("Admin") ? "" : "hover-view")">
+                                <img src="/ProductImage/@product.ProductImageURL" alt="logo" class="img-fluid">
+                            </div>
+                        </div>
+                        @if (!signInManager.IsSignedIn(User))
+                        {
+                            <div class="sideicons">
+                                <a asp-action="Login" asp-controller="Authentication" class="sideicons-btn tooltip alert">
+                                    <span class="tooltiptext">Add To Cart</span>
+                                    <i class="bi bi-cart-plus-fill" style="font-size:1.8rem;"></i>
+                                </a>
+                                <a class="sideicons-btn tooltip alert">
+                                    <span class="tooltiptext bg-danger">Add To Favorite</span>
+                                    <i class="bi bi-heart" style="font-size:1.25rem;"></i>
+                                </a>
+                            </div>
+                        }
+                        else if (!User.IsInRole("Admin"))
+                        {
+                            <div class="sideicons">
+                                <a asp-action="Add" asp-controller="Cart" asp-route-id="@product.ProductId" class="sideicons-btn tooltip">
+                                    <span class="tooltiptext">Add To Cart</span>
+                                    <i class="bi bi-cart-plus-fill" style="font-size:1.8rem;"></i>
+                                </a>
+                                <a asp-action="Add" asp-controller="Fav" asp-route-id="@product.ProductId" class="sideicons-btn tooltip">
+                                    <span class="tooltiptext bg-danger">Add To Favorite</span>
+                                    <i class="bi bi-heart" style="font-size:1.25rem;"></i>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    <div class="product-info">
+                        <h6 class="product-category">@product.Category.CategoryName</h6>
+                        <h6 class="product-title">@product.ProductName</h6>
+
+                        <div class="d-flex flex-wrap align-items-center py-2">
+                            <div class="old-price">
+                                &#8377;@(product.ProductPrice * 2)
+                            </div>
+                            <div class="new-price">
+                                &#8377;@product.ProductPrice
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
