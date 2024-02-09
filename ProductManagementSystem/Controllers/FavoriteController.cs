@@ -62,7 +62,7 @@ namespace EcommerceManagementProject.Controllers
 
                     if (existingItem != null)
                     {
-                        TempData["favProduct"] = "This Product is Already added in Favorites";
+                        TempData["isFavorite"] = true;
                         return RedirectToAction("Index", "Home");
                     }
                     else

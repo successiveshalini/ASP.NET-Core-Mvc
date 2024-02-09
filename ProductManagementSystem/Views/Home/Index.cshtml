@@ -1,9 +1,16 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var prices = new List<int?> { 500, 1000, 2000, 5000, 10000, 50000, 100000 };
+    bool isFavorite = Convert.ToBoolean(TempData["isFavorite"]);
+}
+@if(isFavorite)
+{
+    <script>
+        alert("This product is alreay in Favorite")
+    </script>
 }
 
-<div class="text-center">
+<div class="text-center" style="background-color:aqua">
     <h1 class="display-4 text-danger">Welcome To Product Management System</h1>
 
    
@@ -24,7 +31,7 @@
     <style class="bg-dark "></style>
 
 </head>
-<style>
+<style style="color:darkblue">
     .product-card {
         width: 13rem;
         margin: auto;
@@ -265,7 +272,7 @@
 
         <div class="col-md-10">
             <section id="productListContainer">
-                <h1>Trending Products</h1>
+                <h1 style="color:green">Trending Products</h1>
                 <div class="container py-5">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         @foreach (var product in Model)
@@ -280,9 +287,10 @@
                                             <div id="hide_on_hover">
                                                 <p class="book-title">@product.ProductName</p>
                                             </div>
+                                            
                                             <div id="show_on_hover">
-                                                <i class="material-icons heart">favorite</i>
-                                                <button class="btn add-to-cart">Add product</button>
+                                                <i class="material-icons heart"style="color:magenta">favorite</i>
+                                                <button class="btn add-to-cart"style="color:orangered">Add product</button>
                                             </div>
                                             <div class="not_change_on_hover">
                                                 <div class="product-quality">
@@ -305,7 +313,7 @@
                                                     <div class="row pt-1">
                                                         <div class="col-9 mb-1 d-flex justify-content-between">
                                                             <div class="d-flex justify-content-between" style="width:18rem">
-                                                                <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Favorites</a>
+                                                                <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger" style="color:blue">Add to Favorites</a>
 
                                                             </div>
 
@@ -318,7 +326,7 @@
                                                     <div class="row pt-1">
                                                         <div class="col-9 mb-1 d-flex justify-content-between">
                                                             <div class="d-flex justify-content-between" style="width:18rem">
-                                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Cart</a>
+                                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger" style="color:deeppink">Add to Cart</a>
 
                                                             </div>
 
@@ -342,22 +350,22 @@
 
 
 
-                <h1>All products</h1>
+                <h1 style="color:aqua">All products</h1>
                 <div class="container py-5">
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         @foreach (var product in Model)
                         {
                             <div class="col">
                                 <div class="product-card" id="product-card">
-                                    <img src="/image/@product.ProductImageURL" class="product-card-thumbnail-image">
+                                    <img src="/image/@product.ProductImageURL" class="product-card-thumbnail-image" style="color:brown">
                                     <div class="pagination"></div>
                                     <div class="product-details">
                                         <div id="hide_on_hover">
                                             <p class="book-title">@product.ProductName</p>
                                         </div>
                                         <div id="show_on_hover">
-                                            <i class="material-icons heart">favorite</i>
-                                            <button class="btn add-to-cart">Add product</button>
+                                            <i class="material-icons heart" style="color:aqua">favorite</i>
+                                            <button class="btn add-to-cart" style="color:darkblue">Add product</button>
                                         </div>
                                         <div class="not_change_on_hover">
                                             <div class="product-quality">
@@ -380,7 +388,7 @@
                                                 <div class="row pt-1">
                                                     <div class="col-9 mb-1 d-flex justify-content-between">
                                                         <div class="d-flex justify-content-between" style="width:18rem">
-                                                            <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Favorites</a>
+                                                            <a asp-action="Add" asp-controller="Favorite" asp-route-id="@product.ProductId" class="btn btn-danger" style="color:aqua">Add to Favorites</a>
                                                            
                                                         </div>
                                                         
@@ -393,7 +401,7 @@
                                                 <div class="row pt-1">
                                                     <div class="col-9 mb-1 d-flex justify-content-between">
                                                         <div class="d-flex justify-content-between" style="width:18rem">
-                                                            <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Cart</a>
+                                                            <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-dark" style="color:chocolate">Add to Cart</a>
 
                                                         </div>
 
@@ -427,8 +435,9 @@
                 $.ajax({
                     url: "/Home/GetProductsByCategoryPriceAndName",
                     method: "GET",
-                    data: { categoryId: categoryId, priceRange: priceRange, productName: productName },
+                    data: { categoryId: categoryId, priceRange: priceRange, productName: productName  },
                     success: function (result) {
+                        debugger
                         $("#productListContainer").html(result);
                     },
                     error: function () {
@@ -446,6 +455,7 @@
                     method: "GET",
                     data: { categoryId: categoryId, priceRange: priceRange, productName: $("#searchInput").val() },
                     success: function (result) {
+                        debugger
                         $("#productListContainer").html(result);
                     },
                     error: function () {
@@ -455,6 +465,6 @@
             });
         });
 
-
+      
     </script>
 }

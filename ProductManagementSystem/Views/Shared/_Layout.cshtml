@@ -4,7 +4,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"style="background-color:darkblue">
 <head>
     <style class="bg-dark"></style>
     <meta charset="utf-8" />
@@ -16,7 +16,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"style="color:lightpink">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EcommerceManagementProject</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -34,10 +34,10 @@
                         @if(!User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index">Favorite</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index"> Add To Favorite</a>
                             </li>
-                            <li i class="nav-item" &#xF242;>
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Cart</a>
+                            <li i class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index"> Add To Cart</a>
                             </li>
                         }
                         
