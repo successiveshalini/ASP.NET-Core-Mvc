@@ -9,32 +9,32 @@
         <form asp-action="Register" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="mb-1">
-                <label asp-for="FirstName"></label>
+                <label asp-for="FirstName"style="color:aqua"></label>
                 <input type="text" asp-for="FirstName" class="form-control" />
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="LastName"></label>
+                <label asp-for="LastName"style="color:aqua"></label>
                 <input type="text" asp-for="LastName" class="form-control" />
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="Address"></label>
+                <label asp-for="Address" style="color:aqua"></label>
                 <textarea type="text" asp-for="Address" class="form-control" rows="2"></textarea>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="Email"></label>
+                <label asp-for="Email" style="color:aqua"></label>
                 <input type="email" asp-for="Email" autofocus="username" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="Password"></label>
+                <label asp-for="Password" style="color:aqua"></label>
                 <input type="password" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="ConfirmPassword"></label>
+                <label asp-for="ConfirmPassword" style="color:aqua"></label>
                 <input type="password" asp-for="ConfirmPassword" class="form-control" />
                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
             </div>
@@ -43,7 +43,7 @@
                     <a asp-action="Login" style="color:aqua">Have Account?</a>
                 </div>
                 <div class="col-4">
-                    <input type="submit" value="Register" class="btn btn-sm float-end btn-primary" />
+                    <input type="submit" value="Register" class="btn btn-sm float-end btn-primary" style="color:pink" />
                 </div>
             </div>
         </form>

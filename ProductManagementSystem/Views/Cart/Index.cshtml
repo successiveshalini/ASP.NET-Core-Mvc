@@ -18,6 +18,17 @@
     <h1 class="text-danger text-center">No Products in Cart</h1>
     return;
 }
+
+<style>
+    .product-card {
+        width: 11rem;
+        height: 10rem;
+        border: 1rem solid white;
+        box-shadow: 0 0 1rem rgba(33, 33, 33, .2);
+        align-self: center;
+        margin: 16;
+    }
+</style>
 @* <style>
     .amount-box {
         display: flex;
@@ -70,12 +81,12 @@
             <div class="col col-lg-8 mb-4 mb-lg-0">
                 <div class="card mb-3" style="border-radius: .5rem;">
                     <div class="row g-0">
-                        <div class="col-md-3 gradient-custom text-center p-1"
-                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+                        <div class="col-md-4 gradient-custom text-center p-1 product-card"
+                             @* style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;" *@>
                             <img src="~/image/@item.Product.ProductImageURL"
                                  alt="Product" class="img-fluid my-3" style="width:15rem" />
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <div class="card-body p-4">
                                 <h6 class="fw-bold">Order Details</h6>
                                 <hr class="mt-0 mb-4">

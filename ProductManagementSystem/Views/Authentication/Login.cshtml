@@ -12,20 +12,29 @@
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
                  class="img-fluid" alt="Phone image">
             <div class="mb-1">
-                <label asp-for="Username"></label>
+                <label asp-for="Username" style="color:magenta"></label>
                 <input type="userName" asp-for="Username" class="form-control" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="mb-1">
-                <label asp-for="Password"></label>
+                <label asp-for="Password" style="color:magenta"></label>
                 <input type="password" asp-for="Password" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-1 form-check">
                 <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input" /> @Html.DisplayNameFor(a=>a.RememberMe)
+                    <input asp-for="RememberMe" class="form-check-input" style="color:aqua" /> @Html.DisplayNameFor(a=>a.RememberMe)
 
                 </label>
+
+            </div>
+            <div class=" mb-3">
+                <div class=" row">
+                    <div class=" col-6">
+                        <a class=" float-end btn btn-sm btn-outline-primary">Forget password</a>
+                    </div>
+                    
+                </div>
 
             </div>
             <div class="row">
@@ -34,7 +43,7 @@
                     <a asp-action="Register" class="text-decoration-none">Don't Have Account?</a>
                 </div>
                 <div class="col-4">
-                    <input type="submit" value="Login" class="btn btn-sm float-end btn-primary" />
+                    <input type="submit" value="Login" class="btn btn-sm float-end btn-primary" style="color:aqua" />
                 </div>
             </div>
         </form>

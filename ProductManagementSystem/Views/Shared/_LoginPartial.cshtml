@@ -1,7 +1,7 @@
 ﻿@using EcommerceManagementProject.Models.Domain;
 @using EcommerceManagementProject.Models.Dto
 @using Microsoft.AspNetCore.Identity;
-
+@inject UserManager<UserModel> usermanager;
 @inject SignInManager<UserModel> signInManager;
 <ul class="navbar-nav">
     @if (signInManager.IsSignedIn(User))
@@ -18,8 +18,11 @@
                             Dashboard
                         </a>
                     }
-                    <a class="dropdown-item" asp-action="Logout" asp-controller="Authentication">
+                    <a class="dropdown-item" asp-action="Logout" asp-controller="Authentication" style="color:purple">
                         Logout
+                    </a>
+                    <a class="dropdown-item" asp-action="Index" asp-controller="Profile" asp-route-id="@usermanager.GetUserId(User)" style="color:red">
+                        Profile
                     </a>
                 </li>
             </ul>

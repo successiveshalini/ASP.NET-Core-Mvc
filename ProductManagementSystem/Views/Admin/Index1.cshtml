@@ -60,7 +60,7 @@ else
         <!-- Your navbar content here -->
         <nav class="navbar navbar-expand-lg d-flex justify-content-between  bgaqua w-100">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#">Admin Dashboard</a>
+                <a class="navbar-brand text-white" href="#"style="color:purple">Admin Dashboard</a>
                 <div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -82,6 +82,10 @@ else
                                 <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="#">Profile</a></li>
                                     <li><a class="dropdown-item" asp-action="Logout" asp-controller="Authentication">Logout</a></li>
+                                </ul>
+                                <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" asp-action="Profile" asp-controller="Profile">Profile</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -143,11 +147,11 @@ else
                     </ul>
                 </div>
                 <div class="btn-group dropend mt-5 ">
-                    <button type="button" class="btn btn-outline-info w-100 fs-7 fw-bold dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button type="button" class="btn btn-outline-info w-100 fs-7 fw-bold dropdown-toggle" style="color:aqua" data-bs-toggle="dropdown" aria-expanded="false">
                         Manage Products
                     </button>
                     <ul class="dropdown-menu ">
-                        <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
+                        <li><a class="dropdown-item" style="color:lightyellow" href="/Product/GetAll">All Products</a></li>
                         <li><a class="dropdown-item" href="/Product/AddProduct/">Add New Products</a></li>
                         @* <li><a class="dropdown-item" href="GetAll">All Products</a></li> *@
                     </ul>

@@ -18,7 +18,7 @@
             </a>
         </div>
     </div>
-    <div class="row g-4">
+    <div class="row g-4" style="background-color:red">
         <div class="col-12">
             <div class="bg-light rounded h-100 p-4">
                 @if (Model.Count == 0)
@@ -27,7 +27,7 @@
                 }
                 else
                 {
-                    <table id="myTable" class="table cell-border">
+                    <table id="myTable" class="table cell-border" style="color:chocolate">
                         <thead>
                             <tr>
                                 <th scope="col">User Id</th>
@@ -72,10 +72,14 @@
                                                     <i class="bi bi-check-circle-fill"></i> Active
                                                 </a>
                                             }
+                                            <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+                                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                                <li><a class="dropdown-item" asp-action="Profile" asp-controller="Profile">Profile</a></li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>
-                            }s
+                            }
                         </tbody>
                     </table>
                 }

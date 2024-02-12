@@ -18,44 +18,44 @@
         </style>
     </head>
     <body>
-    <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
         
 
         <form asp-action="Update" method="post" enctype="multipart/form-data" asp-controller="Product" class="form-control w-50 p-5">
-        <h2 class="mb-3">Update Product</h2>
-            <div class="form-group mb-3">
+        <h2 class="mb-3" style="color:brown">Update Product</h2>
+            <div class="form-group mb-3" style="color:aqua">
                 <label asp-for="ProductId"></label>
                 <input asp-for="ProductId" class="form-control" placeholder="Product Id" readonly />
                 <span asp-validation-for="ProductId" class="text-danger"></span>
             </div>
-            <div class="form-group mb-3">
+            <div class="form-group mb-3" style="color:aqua">
                 <label asp-for="ProductName"></label>
                 <input asp-for="ProductName" class="form-control" type="text" placeholder="Product Name" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="ProductDes"></label>
+                <label asp-for="ProductDes" style="color:aqua"></label>
                 <input asp-for="ProductDes" class="form-control" type="text" placeholder="Product Description" />
                 <span asp-validation-for="ProductDes" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="ProductPrice"></label>
+                <label asp-for="ProductPrice" style="color:aqua"></label>
                 <input asp-for="ProductPrice" class="form-control" type="number" placeholder="Product Price" />
                 <span asp-validation-for="ProductPrice" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="ProductImage"></label>
+                <label asp-for="ProductImage" style="color:aqua"></label>
                 <input asp-for="ProductImage" class="form-control" type="file" placeholder="Product Image" id="ChooseImage"/>
                 <span asp-validation-for="ProductImage" class="text-danger"></span>
                 <img src="/image/@Model.ProductImageUrl" style="height:100px; width:100px;" id="PreviewImage"/>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="IsAvailable"></label>
+                <label asp-for="IsAvailable" style="color:aqua"></label>
                 <input asp-for="IsAvailable" type="checkbox" />
                 <span asp-validation-for="IsAvailable" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="IsTrending"></label>
+                <label asp-for="IsTrending"style="color:aqua"></label>
                 <input asp-for="IsTrending" type="checkbox" />
                 <span asp-validation-for="IsTrending" class="text-danger"></span>
             </div>

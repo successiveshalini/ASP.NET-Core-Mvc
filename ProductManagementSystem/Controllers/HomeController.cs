@@ -26,11 +26,7 @@ namespace EcommerceManagementProject.Controllers
 
         public IActionResult GetProductsByCategoryPriceAndName(Guid categoryId, int? priceRange, string productName)
         {
-            //if (categoryId == 6)
-            //{
-            //    var allProducts = _applicationDbContext.products.Include(x => x.Category).Where(x => (priceRange == null || x.ProductPrice <= priceRange) && (string.IsNullOrEmpty(productName) || x.ProductName.Contains(productName)) && x.IsActive == true).OrderByDescending(x => x.ProductCreatedAt).ToList();
-            //    return PartialView("_ProductByCategoryPartial", allProducts);
-            //}
+            
             var products = _applicationDbContext.products.Include(x => x.Category)
                                             .Where(x => (categoryId == Guid.Empty || x.CategoryId == categoryId) &&
                                                         (priceRange == null || x.ProductPrice <= priceRange) &&
