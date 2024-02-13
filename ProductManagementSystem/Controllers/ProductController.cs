@@ -2,6 +2,7 @@
 using EcommerceManagementProject.Migrations;
 using EcommerceManagementProject.Models.Domain;
 using EcommerceManagementProject.Models.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -69,6 +70,7 @@ namespace EcommerceManagementProject.Controllers
             return View(products);
 
         }
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> AddProduct()
         {
@@ -79,6 +81,7 @@ namespace EcommerceManagementProject.Controllers
             }
             return View();
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductDto addProductDto)
         {
@@ -109,12 +112,13 @@ namespace EcommerceManagementProject.Controllers
                 await _applicationDbContext.SaveChangesAsync();
                 ViewBag.Success = "Product Added Successfully";
 
-                return RedirectToAction("Index", "Admin");
+                return RedirectToAction("GetAll", "Product");
 
             }
             return View(addProductDto);
 
         }
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Update(Guid id)
         {
@@ -138,6 +142,7 @@ namespace EcommerceManagementProject.Controllers
             }
             return RedirectToAction("GetAll");
         }
+        [Authorize(Roles ="Admin")]
         [HttpPost]
         public async Task<IActionResult> Update(UpdateProductDto updateProductDto)
         {
@@ -166,11 +171,12 @@ namespace EcommerceManagementProject.Controllers
                 TempData["error"] = "Records Updated";
             }
             await _applicationDbContext.SaveChangesAsync();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("GetAll", "Product");
             
 
         }
 
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Active(Guid id)
         {
@@ -184,6 +190,8 @@ namespace EcommerceManagementProject.Controllers
             return RedirectToAction("GetAll");
         }
 
+        [Authorize(Roles ="Admin")]
+
         [HttpGet]
         public async Task<IActionResult> Deactive(Guid id)
         {
@@ -196,6 +204,7 @@ namespace EcommerceManagementProject.Controllers
             }
             return RedirectToAction("GetAll");
         }
+        [Authorize(Roles ="Admin")]
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {

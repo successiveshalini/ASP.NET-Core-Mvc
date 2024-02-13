@@ -22,8 +22,8 @@
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="mb-1 form-check">
-                <label class="form-check-label">
-                    <input asp-for="RememberMe" class="form-check-input" style="color:aqua" /> @Html.DisplayNameFor(a=>a.RememberMe)
+                <label class="form-check-label" style="color:pink">
+                    <input asp-for="RememberMe" class="form-check-input" /> @Html.DisplayNameFor(a=>a.RememberMe)
 
                 </label>
 
@@ -38,12 +38,12 @@
 
             </div>
             <div class="row">
-                <div class="col-8">
+                <div class="col-8" style="background-color:yellow">
                    
                     <a asp-action="Register" class="text-decoration-none">Don't Have Account?</a>
                 </div>
-                <div class="col-4">
-                    <input type="submit" value="Login" class="btn btn-sm float-end btn-primary" style="color:aqua" />
+                <div class="col-4" style="background-color:red">
+                    <input type="submit" value="Login" class="btn btn-sm float-end btn-primary" />
                 </div>
             </div>
         </form>

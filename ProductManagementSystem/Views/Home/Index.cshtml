@@ -254,7 +254,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/Admin/GetAllUser">All Users</a></li>
-                        <li><a class="dropdown-item" href="/Admin/AddNewUser">Add New User</a></li>
+                       @*  <li><a class="dropdown-item" href="/Admin/AddNewUser">Add New User</a></li> *@
                     </ul>
                 </div>
                 <div class="btn-group dropend mt-5">
@@ -263,7 +263,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/Product/GetAll">All Products</a></li>
-                        <li><a class="dropdown-item" href="/Product/AddProduct">Add Product</a></li>
+                        @* <li><a class="dropdown-item" href="/Product/AddProduct">Add Product</a></li> *@
                     </ul>
                 </div>
             }
@@ -326,7 +326,7 @@
                                                     <div class="row pt-1">
                                                         <div class="col-9 mb-1 d-flex justify-content-between">
                                                             <div class="d-flex justify-content-between" style="width:18rem">
-                                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger" style="color:deeppink">Add to Cart</a>
+                                                                <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@product.ProductId" class="btn btn-danger">Add to Cart</a>
 
                                                             </div>
 

@@ -33,12 +33,21 @@
                         </li>
                         @if(!User.IsInRole("Admin"))
                         {
-                            <li class="nav-item">
+                            <li class="nav-item" style="background-color:green">
+
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index"> Add To Favorite</a>
+
                             </li>
-                            <li i class="nav-item">
+
+
+
+
+                            <li i class="nav-item" style="background-color:lightpink">
+
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index"> Add To Cart</a>
+
                             </li>
+
                         }
                         
                     </ul>
